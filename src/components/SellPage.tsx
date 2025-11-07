@@ -77,7 +77,6 @@ export default function SellPage() {
     try {
       let imageUrl = formData.image_url;
 
-      // Upload new image if selected
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
       }
@@ -218,9 +217,6 @@ export default function SellPage() {
                   </div>
                 )}
               </div>
-              {!editingProduct && (
-                <p className="text-xs text-gray-500 mt-1">Upload a product image (required)</p>
-              )}
             </div>
 
             <div>
@@ -287,12 +283,12 @@ export default function SellPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="bg-gray-100 flex items-center justify-center h-48 overflow-hidden">
+            <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-[400px]">
+              <div className="bg-gray-100 flex items-center justify-center overflow-hidden h-56">
                 <img
                   src={product.image_url}
                   alt={product.name}
-                  className="w-full h-64 object-cover rounded-t-xl hover:scale-105 transition-transform duration-300"
+                  className="h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
                       'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ddd" width="200" height="200"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -300,36 +296,40 @@ export default function SellPage() {
                 />
               </div>
 
-              <div className="p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-lg text-gray-900">{product.name}</h3>
-                  <span
-                    className={`text-xs px-2 py-1 rounded ${
-                      product.status === 'available'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-gray-100 text-gray-700'
-                    }`}
-                  >
-                    {product.status}
-                  </span>
+              <div className="p-4 flex flex-col flex-grow justify-between">
+                <div>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="font-semibold text-lg text-gray-900">{product.name}</h3>
+                    <span
+                      className={`text-xs px-2 py-1 rounded ${
+                        product.status === 'available'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}
+                    >
+                      {product.status}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
                 </div>
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
-                <p className="text-xl font-bold text-blue-600 mb-4">₹{product.price}</p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-                  >
-                    <Edit2 size={16} />
-                    <span>Edit</span>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 py-2 rounded-lg hover:bg-red-100 transition-colors"
-                  >
-                    <Trash2 size={16} />
-                    <span>Delete</span>
-                  </button>
+                <div>
+                  <p className="text-xl font-bold text-blue-600 mt-2 mb-3">₹{product.price}</p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+                    >
+                      <Edit2 size={16} />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="flex-1 flex items-center justify-center gap-2 bg-red-50 text-red-600 py-2 rounded-lg hover:bg-red-100 transition-colors"
+                    >
+                      <Trash2 size={16} />
+                      <span>Delete</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
