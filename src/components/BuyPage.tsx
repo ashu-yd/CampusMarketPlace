@@ -98,17 +98,18 @@ export default function BuyPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="h-48 bg-gray-200 overflow-hidden">
+              <div className="bg-gray-100 flex items-center justify-center h-64 overflow-hidden">
                 <img
-                  src={convertGoogleDriveUrl(product.image_url)}
+                  src={product.image_url}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-64 object-cover rounded-t-xl hover:scale-105 transition-transform duration-300"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
                       'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ddd" width="200" height="200"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
                   }}
                 />
               </div>
+
               <div className="p-4">
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{product.name}</h3>
                 <p className="text-gray-600 text-sm mb-3 line-clamp-3">{product.description}</p>
