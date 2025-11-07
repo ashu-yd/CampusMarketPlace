@@ -288,7 +288,7 @@ export default function SellPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="bg-gray-100 flex items-center justify-center h-64 overflow-hidden">
+              <div className="bg-gray-100 flex items-center justify-center h-48 overflow-hidden">
                 <img
                   src={product.image_url}
                   alt={product.name}
